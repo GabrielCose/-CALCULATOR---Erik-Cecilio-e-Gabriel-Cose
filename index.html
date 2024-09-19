@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/Marise%20Miranda/Downloads/Marises%20Machine.html -->
+<html lang="en">
+
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+        
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+
+                body {
+
+                        background-image: url(https://www.motortrend.com/uploads/f/152692725.jpg);
+                        background-size: cover;
+                        /*cobrir a tela*/
+                        background-repeat: no-repeat;
+                        /* background-position: center; */
+                        /*Nao repetir*/
+                        font-family:'Roboto+Slab';
+
+                        color: white;
+
+
+                }
+
+                .base-button{
+
+                        font-size: 1.2em;
+                        font-weight: bold;
+                }
+
+                input {
+                        border-radius: 18px;
+                        padding: 5px 40px;
+                        border: 10px;
+                        text-align: center;
+                }
+
+                button {
+                        border-radius: 18px;
+                        padding: 5px 40px;
+                        border: 10px;
+                }
+                 
+                button:hover{
+                        cursor: pointer;
+                        background-color: blue;
+                }
+
+                center {
+                background: rgba(0, 0, 0, 0.7);
+                border-radius: 18px;
+                padding: 0;
+                border: 10px;
+                width: 700px;
+                margin: 0 auto;
+        }
+
+                
+        
+        </style>
+
+</head>
+
+<body bgcolor="#A020F0">
+
+
+        <center>
+                <h1 id="title">EG CALCULATOR</h1>
+                <div id="base-buttons">
+                        <button class="base-button" value="decimal">Decimal</button>
+                        <button class="base-button" value="octal">Octal</button>
+                        <button class="base-button" value="hexadecimal">Hexadecimal</button>
+                        <button class="base-button" value="binary">Binário</button>
+                </div>
+               
+                <br><br>
+                <input id="input-field" type="text" placeholder="Digite o valor">
+
+                <br><br><br>
+                <button onclick="convert()">Converter</button>
+                <br><br><br>
+                <div id="output-field"></div>
+        </center>
+
+
+
+
+        <script>
+
+                let selectedBase = null;
+
+                document.querySelectorAll('.base-button').forEach(button => {
+                        button.addEventListener('click', () => {
+                                selectedBase = button.value;
+                                document.querySelectorAll('.base-button').forEach(btn => btn.classList.remove('selected'));
+                                button.classList.add('selected');
+                        });
+                });
+
+                function convert() {
+                        var inputField = document.getElementById("input-field");
+                        var decimalValue = 0;
+
+                        if (selectedBase == "decimal") {
+                                decimalValue = Number(inputField.value);
+                        } else if (selectedBase == "octal") {
+                                decimalValue = parseInt(inputField.value, 8);
+                        } else if (selectedBase == "hexadecimal") {
+                                decimalValue = parseInt(inputField.value, 16);
+                        } else if (selectedBase == "binary") {
+                                decimalValue = parseInt(inputField.value, 2);
+                        }
+
+                        if (decimalValue) {
+                                let octal = decimalValue.toString(8);
+                                let binary = decimalValue.toString(2);
+                                let hexadecimal = decimalValue.toString(16);
+
+                                if (selectedBase == "decimal") {
+                                       
+                                        document.getElementById("output-field").innerHTML = `
+        <h3>
+        Octal: ${octal}<br>
+        Binário: ${binary}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (selectedBase == "octal") {
+                                        document.getElementById("output-field").innerHTML = `
+        <h3>
+        Decimal: ${decimalValue}<br>
+        Binário: ${binary}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (selectedBase == "hexadecimal") {
+                                        document.getElementById("output-field").innerHTML = `
+        <h3>
+        Decimal: ${decimalValue}<br>
+        Octal: ${octal}<br>
+        Binário: ${binary}<br><br>
+        
+        </h3> 
+      `;
+                                } else if (selectedBase == "binary") {
+                                        document.getElementById("output-field").innerHTML = `
+        <h3>
+                Decimal: ${decimalValue}<br>
+        Octal: ${octal}<br>
+        Hexadecimal: ${hexadecimal}<br><br>
+        
+        </h3> 
+      `;
+                                }
+                        } else {
+                                alert("Insira um valor válido");
+                        }
+                }
+        </script>
+</body>
+
+</html>
